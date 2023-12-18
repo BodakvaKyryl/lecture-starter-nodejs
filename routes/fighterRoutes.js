@@ -1,13 +1,20 @@
-import { Router } from "express";
-import { fighterService } from "../services/fighterService.js";
-import { responseMiddleware } from "../middlewares/response.middleware.js";
+import { Router } from 'express'
+import { responseMiddleware } from '../middlewares/response.middleware.js'
+import { createFighterValid, isFighterExist, updateFighterValid } from '../middlewares/fighter.validation.middleware.js'
 import {
-  createFighterValid,
-  updateFighterValid,
-} from "../middlewares/fighter.validation.middleware.js";
+    createFighterController,
+    deletedFighterController,
+    getAllFightersController,
+    getFighterByIdController,
+    updateFighterController,
+} from '../controllers/fighters.controllers.js'
 
-const router = Router();
+const router = Router()
 
-// TODO: Implement route controllers for fighter
+router.get('/', getAllFightersController, responseMiddleware)
+router.get('/:id', isFighterExist, getFighterByIdController, responseMiddleware)
+router.post('/', createFighterValid, createFighterController, responseMiddleware)
+router.put('/:id', isFighterExist, updateFighterValid, updateFighterController, responseMiddleware)
+router.delete('/:id', isFighterExist, deletedFighterController, responseMiddleware)
 
-export { router };
+export { router }
