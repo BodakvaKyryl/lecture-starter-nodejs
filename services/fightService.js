@@ -1,9 +1,9 @@
-import { fightRepository } from "../repositories/fightRepository.js";
+import { fightRepository } from '../repositories/fightRepository.js'
 
 class FightersService {
-  // OPTIONAL TODO: Implement methods to work with fights
+    // OPTIONAL TODO: Implement methods to work with fights
 }
 
-const fightersService = new FightersService();
+const fightersService = new FightersService()
 
-export { fightersService };
+export { fightersService }

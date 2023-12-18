@@ -1,6 +1,7 @@
 const responseMiddleware = (req, res, next) => {
-  // TODO: Implement middleware that returns result of the query
-  next();
-};
+    const result = res.locals.queryResult
+    res.send(result)
+    next()
+}
 
-export { responseMiddleware };
+export { responseMiddleware }
