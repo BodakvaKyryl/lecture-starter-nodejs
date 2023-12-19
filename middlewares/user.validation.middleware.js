@@ -1,5 +1,3 @@
-// @ts-check
-
 import { userService } from '../services/userService.js'
 
 const validateUserFields = (fields, isUpdate = false) => {
