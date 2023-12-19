@@ -53,7 +53,7 @@ const validateFighterFields = (req, update = false) => {
     return errors
 }
 
-const createValidFighter = (req, res, next) => {
+const createFighterValid = (req, res, next) => {
     const errors = validateFighterFields(req)
 
     if (errors.length > 0) {
@@ -64,7 +64,7 @@ const createValidFighter = (req, res, next) => {
     next()
 }
 
-const updateValidFighter = (req, res, next) => {
+const updateFighterValid = (req, res, next) => {
     const errors = validateFighterFields(req, true)
 
     if (errors.length > 0) {
@@ -75,4 +75,4 @@ const updateValidFighter = (req, res, next) => {
     next()
 }
 
-export { createValidFighter, updateValidFighter }
+export { createFighterValid, updateFighterValid }
