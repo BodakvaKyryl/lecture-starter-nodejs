@@ -1,4 +1,5 @@
 import { fighterRepository } from '../repositories/fighterRepository.js'
+import { FIGHTER } from '../models/fighter.js'
 
 class FighterService {
     search(data) {

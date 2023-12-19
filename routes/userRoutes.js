@@ -9,10 +9,9 @@ router.get(
     '/',
     (req, res, next) => {
         try {
-            res.data = userService.getAll()
+            res.json({ data: userService.getAll() })
         } catch (err) {
-            res.err = err
-            res.err.status = 404
+            res.status(404).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -24,10 +23,9 @@ router.get(
     '/:id',
     (req, res, next) => {
         try {
-            res.data = userService.getOne(req.params.id)
+            res.json({ data: userService.getOne(req.params.id) })
         } catch (err) {
-            res.err = err
-            res.err.status = 404
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -40,12 +38,9 @@ router.post(
     createUserValid,
     (req, res, next) => {
         try {
-            if (!res.err) {
-                res.data = userService.create(req.body)
-            }
+            res.json({ data: userService.create(req.body) })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -58,12 +53,9 @@ router.put(
     updateUserValid,
     (req, res, next) => {
         try {
-            if (!res.err) {
-                res.data = userService.update(req.params.id, req.body)
-            }
+            res.json({ data: userService.update(req.params.id, req.body) })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -75,10 +67,9 @@ router.delete(
     '/:id',
     (req, res, next) => {
         try {
-            res.data = userService.delete(req.params.id)
+            res.json({ data: userService.delete(req.params.id) })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }

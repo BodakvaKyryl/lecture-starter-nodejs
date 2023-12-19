@@ -1,3 +1,4 @@
+import request from 'request'
 import { fighterService } from '../services/fighterService.js'
 
 const MIN_HEALTH = 80
@@ -28,7 +29,7 @@ const validateFighterFields = (req, update = false) => {
             errors.push('Name is already taken')
         }
     }
-    
+
     if (typeof health !== 'undefined') {
         if (typeof health !== 'number') {
             errors.push('Health must be a number')
@@ -53,11 +54,17 @@ const validateFighterFields = (req, update = false) => {
     return errors
 }
 
+/**
+ *
+ * @param {import ('express').Request} req
+ * @param {import ('express').Response} res
+ * @param {*} next
+ */
 const createFighterValid = (req, res, next) => {
     const errors = validateFighterFields(req)
 
-    if (errors.length > 0) {
-        res.status(400).json({ errors })
+    if (errors.length) {
+        res.status(400).json({ error: true, message: errors.join('\n') })
         return
     }
 
@@ -67,8 +74,8 @@ const createFighterValid = (req, res, next) => {
 const updateFighterValid = (req, res, next) => {
     const errors = validateFighterFields(req, true)
 
-    if (errors.length > 0) {
-        res.status(400).json({ errors })
+    if (errors.length) {
+        res.status(400).json({ error: true, message: errors.join('\n') })
         return
     }
 

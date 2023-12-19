@@ -15,10 +15,9 @@ router.post(
             }
 
             const data = authService.login({ email, password })
-            res.data = data
+            res.json({ data })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.json({ error: true, message: err.message }).status(400)
         } finally {
             next()
         }

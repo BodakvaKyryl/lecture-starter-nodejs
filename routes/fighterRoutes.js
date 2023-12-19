@@ -7,13 +7,12 @@ const router = Router()
 
 router.get(
     '/',
-    (req, res) => {
+    (req, res, next) => {
         try {
             const fighters = fighterService.getAll()
-            res.data = fighters
+            res.json({ data: fighters })
         } catch (err) {
-            res.err = err
-            res.err.status = 404
+           res.status(404).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -26,10 +25,9 @@ router.get(
     (req, res, next) => {
         try {
             const fighter = fighterService.getOne(req.params.id)
-            res.data = fighter
+            res.json({ data: fighter })
         } catch (err) {
-            res.err = err
-            res.err.status = 404
+            res.status(404).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -42,12 +40,9 @@ router.post(
     createFighterValid,
     (req, res, next) => {
         try {
-            if (!res.err) {
-                res.data = fighterService.create(req.body)
-            }
+            res.json({ data: fighterService.create(req.body) })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -60,12 +55,9 @@ router.put(
     updateFighterValid,
     (req, res, next) => {
         try {
-            if (!res.err) {
-                res.data = fighterService.update(req.params.id, req.body)
-            }
+            res.json({ data: fighterService.update(req.params.id, req.body) })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
@@ -78,10 +70,9 @@ router.delete(
     (req, res, next) => {
         try {
             const fighter = fighterService.delete(req.params.id)
-            res.data = fighter
+            res.json({ data: fighter })
         } catch (err) {
-            res.err = err
-            res.err.status = 400
+            res.status(400).json({ error: true, message: err.message })
         } finally {
             next()
         }
