@@ -28,7 +28,7 @@ const validateFighterFields = (req, update = false) => {
             errors.push('Name is already taken')
         }
     }
-    n
+    
     if (typeof health !== 'undefined') {
         if (typeof health !== 'number') {
             errors.push('Health must be a number')
