@@ -20,7 +20,7 @@ class FightersService {
     getOne(id) {
         const item = fightRepository.getOne(id)
         if (!item) {
-            throw new Error('Fight not found.')
+            throw new Error('Fight not found')
         }
         return item
     }
@@ -28,7 +28,7 @@ class FightersService {
     create(data) {
         const item = fightRepository.create(data)
         if (!item) {
-            throw new Error('Fight not created.')
+            throw new Error('Fight not created')
         }
         return item
     }
@@ -36,7 +36,7 @@ class FightersService {
     update(id, data) {
         const item = fightRepository.update(id, data)
         if (!item) {
-            throw new Error('Fight not updated.')
+            throw new Error('Fight not updated')
         }
         return item
     }
@@ -44,7 +44,7 @@ class FightersService {
     delete(id) {
         const item = fightRepository.delete(id)
         if (!item) {
-            throw new Error('Fight not deleted.')
+            throw new Error('Fight not deleted')
         }
         return item
     }

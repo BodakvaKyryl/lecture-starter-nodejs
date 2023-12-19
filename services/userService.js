@@ -1,32 +1,83 @@
 import { userRepository } from '../repositories/userRepository.js'
+import { USER } from '../models/user.js'
 
 class UserService {
-    searchUser(search) {
-        const item = userRepository.getOne(search)
+    search(data) {
+        const item = userRepository.getOne(data)
         if (!item) {
             return null
         }
         return item
     }
 
-    createUser(data) {
-        const user = userRepository.create(data)
-        return user
+    getAll() {
+        const items = userRepository.getAll()
+        if (!items) {
+            return null
+        }
+        return items
     }
 
-    getAllUsers() {
-        const users = userRepository.getAll()
-        return users
+    getOne(id) {
+        try {
+            const item = userRepository.getOne(id)
+            if (!item) {
+                throw new Error('User not found')
+            }
+            return item
+        } catch (error) {
+            throw new Error('User not found')
+        }
     }
 
-    deleteUser(id) {
-        const deletedUser = userRepository.delete(id)
-        return deletedUser
+    create(data) {
+        const validUser = {}
+        for (let key in data) {
+            if (key in USER && key !== 'id') {
+                validUser[key] = data[key]
+            }
+        }
+
+        try {
+            const item = userRepository.create(validUser)
+            if (!item) {
+                throw new Error('User not created')
+            }
+            return item
+        } catch (error) {
+            throw new Error('User not created')
+        }
     }
 
-    updateUser(id, dataToUpdate) {
-        const patchedUser = userRepository.update(id, dataToUpdate)
-        return patchedUser
+    delete(id) {
+        try {
+            const item = userRepository.delete(id)
+            if (!item) {
+                throw Error('User not deleted')
+            }
+            return item
+        } catch (error) {
+            throw Error('User not deleted')
+        }
+    }
+
+    update(id, data) {
+        const validUser = {}
+        for (let key in data) {
+            if (key in USER && key !== 'id') {
+                validUser[key] = data[key]
+            }
+        }
+
+        try {
+            const item = userRepository.update(id, validUser)
+            if (!item) {
+                throw Error('User not updated')
+            }
+            return item
+        } catch (error) {
+            throw Error('User not updated')
+        }
     }
 }
 

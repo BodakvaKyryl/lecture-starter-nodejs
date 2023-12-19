@@ -1,32 +1,80 @@
 import { fighterRepository } from '../repositories/fighterRepository.js'
 
 class FighterService {
-    getAllFighters() {
-        const fighters = fighterRepository.getAll()
-        return fighters
-    }
-
-    createFighter(data) {
-        const fighter = fighterRepository.create(data)
-        return fighter
-    }
-
-    searchFighter(search) {
-        const item = fighterRepository.getOne(search)
+    search(data) {
+        const item = fighterRepository.getOne(data)
         if (!item) {
             return null
         }
         return item
     }
 
-    deleteFighter(id) {
-        const deletedFighter = fighterRepository.delete(id)
-        return deletedFighter
+    getAll() {
+        const items = fighterRepository.getAll()
+        if (!items) {
+            return null
+        }
+        return items
     }
 
-    updateFighter(id, dataToUpdate) {
-        const updatedFighter = fighterRepository.update(id, dataToUpdate)
-        return updatedFighter
+    getOne(id) {
+        try {
+            const item = fighterRepository.getOne({ id })
+            if (!item) {
+                throw Error('Fighter not found')
+            }
+            return item
+        } catch (error) {
+            throw Error('Fighter not found')
+        }
+    }
+
+    create(data) {
+        const validFighter = {}
+        for (let key in data) {
+            if (key in FIGHTER && key !== 'id') {
+                validFighter[key] = data[key]
+            }
+        }
+        try {
+            const item = fighterRepository.create(validFighter)
+            if (!item) {
+                throw Error('Fighter not created')
+            }
+            return item
+        } catch (error) {
+            throw Error('Fighter not created')
+        }
+    }
+
+    update(id, data) {
+        const validFighter = {}
+        for (let key in data) {
+            if (key in FIGHTER && key !== 'id') {
+                validFighter[key] = data[key]
+            }
+        }
+        try {
+            const item = fighterRepository.update(id, validFighter)
+            if (!item) {
+                throw Error('Fighter not updated')
+            }
+            return item
+        } catch (error) {
+            throw Error('Fighter not updated')
+        }
+    }
+
+    delete(id) {
+        try {
+            const item = fighterRepository.delete(id)
+            if (!item.length) {
+                throw Error('Fighter not deleted')
+            }
+            return item
+        } catch (error) {
+            throw Error('Fighter not deleted')
+        }
     }
 }
 
