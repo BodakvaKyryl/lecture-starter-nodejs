@@ -1,4 +1,4 @@
-export const USER = {
+const USER = {
     id: '',
     firstName: '',
     lastName: '',
@@ -7,10 +7,4 @@ export const USER = {
     password: '', // min 3 symbols
 }
 
-export const USER_BODY = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-}
+export { USER }
